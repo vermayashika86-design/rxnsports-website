@@ -104,16 +104,11 @@ export default function About() {
                   equipment to athletes across India.
                 </p>
 
-                <Button
-                  asChild
-                  className="bg-primary hover:bg-red-700 text-white font-bold px-8 py-3 transition-all duration-200 hover:scale-105 active:scale-95"
-                >
-                  <Link href="/contact">
-                    <a className="flex items-center gap-2">
-                      GET IN TOUCH <ArrowRight className="w-5 h-5" />
-                    </a>
-                  </Link>
-                </Button>
+                <Link href="/contact">
+                  <a className="bg-primary hover:bg-red-700 text-white font-bold px-8 py-3 transition-all duration-200 hover:scale-105 active:scale-95 inline-flex items-center gap-2 rounded-md">
+                    GET IN TOUCH <ArrowRight className="w-5 h-5" />
+                  </a>
+                </Link>
               </motion.div>
 
               <motion.div

@@ -88,25 +88,16 @@ export default function Home() {
                 </motion.p>
 
                 <motion.div variants={itemVariants} className="flex gap-4 pt-4">
-                  <Button
-                    asChild
-                    className="bg-primary hover:bg-red-700 text-white font-bold px-8 py-3 transition-all duration-200 hover:scale-105 active:scale-95"
-                  >
-                    <Link href="/products">
-                      <a className="flex items-center gap-2">
-                        SHOP NOW <ArrowRight className="w-5 h-5" />
-                      </a>
-                    </Link>
-                  </Button>
-                  <Button
-                    asChild
-                    variant="outline"
-                    className="border-2 border-white text-white hover:bg-white hover:text-black font-bold px-8 py-3 transition-all duration-200"
-                  >
-                    <Link href="/about">
-                      <a>LEARN MORE</a>
-                    </Link>
-                  </Button>
+                  <Link href="/products">
+                    <a className="bg-primary hover:bg-red-700 text-white font-bold px-8 py-3 transition-all duration-200 hover:scale-105 active:scale-95 inline-flex items-center gap-2 rounded-md">
+                      SHOP NOW <ArrowRight className="w-5 h-5" />
+                    </a>
+                  </Link>
+                  <Link href="/about">
+                    <a className="border-2 border-white text-white hover:bg-white hover:text-black font-bold px-8 py-3 transition-all duration-200 inline-block rounded-md">
+                      LEARN MORE
+                    </a>
+                  </Link>
                 </motion.div>
               </motion.div>
 
@@ -204,14 +195,11 @@ export default function Home() {
                       <span className="text-2xl font-bold text-black">{product.price}</span>
                       <span className="text-sm text-gray-600">★ {product.rating}</span>
                     </div>
-                    <Button
-                      asChild
-                      className="w-full bg-primary hover:bg-red-700 text-white font-bold transition-all duration-200"
-                    >
-                      <Link href="/products">
-                        <a>VIEW DETAILS</a>
-                      </Link>
-                    </Button>
+                    <Link href="/products">
+                      <a className="block w-full bg-primary hover:bg-red-700 text-white font-bold py-2 px-4 text-center transition-all duration-200 rounded-md">
+                        VIEW DETAILS
+                      </a>
+                    </Link>
                   </div>
                 </motion.div>
               ))}
@@ -224,16 +212,11 @@ export default function Home() {
               viewport={{ once: true }}
               className="text-center mt-12"
             >
-              <Button
-                asChild
-                className="bg-black hover:bg-gray-900 text-white font-bold px-8 py-3 transition-all duration-200"
-              >
-                <Link href="/products">
-                  <a className="flex items-center gap-2">
-                    EXPLORE ALL PRODUCTS <ArrowRight className="w-5 h-5" />
-                  </a>
-                </Link>
-              </Button>
+              <Link href="/products">
+                <a className="bg-black hover:bg-gray-900 text-white font-bold px-8 py-3 transition-all duration-200 inline-flex items-center gap-2 rounded-md">
+                  EXPLORE ALL PRODUCTS <ArrowRight className="w-5 h-5" />
+                </a>
+              </Link>
             </motion.div>
           </div>
         </section>
@@ -251,16 +234,11 @@ export default function Home() {
               <p className="text-lg text-gray-300 max-w-2xl mx-auto">
                 Join thousands of athletes who trust RXN Sports for their training and competition gear.
               </p>
-              <Button
-                asChild
-                className="bg-primary hover:bg-red-700 text-white font-bold px-8 py-3 transition-all duration-200 hover:scale-105 active:scale-95"
-              >
-                <Link href="/contact">
-                  <a className="inline-flex items-center gap-2">
-                    GET IN TOUCH <ArrowRight className="w-5 h-5" />
-                  </a>
-                </Link>
-              </Button>
+              <Link href="/contact">
+                <a className="bg-primary hover:bg-red-700 text-white font-bold px-8 py-3 transition-all duration-200 hover:scale-105 active:scale-95 inline-flex items-center gap-2 rounded-md">
+                  GET IN TOUCH <ArrowRight className="w-5 h-5" />
+                </a>
+              </Link>
             </motion.div>
           </div>
         </section>

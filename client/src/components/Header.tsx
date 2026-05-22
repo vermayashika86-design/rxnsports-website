@@ -46,14 +46,11 @@ export default function Header() {
 
           {/* CTA Button - Desktop */}
           <div className="hidden md:flex items-center gap-4">
-            <Button
-              asChild
-              className="bg-primary hover:bg-red-700 text-white font-bold px-6 py-2 transition-all duration-200 hover:scale-105"
-            >
-              <Link href="/products">
-                <a>SHOP NOW</a>
-              </Link>
-            </Button>
+            <Link href="/products">
+              <a className="bg-primary hover:bg-red-700 text-white font-bold px-6 py-2 transition-all duration-200 hover:scale-105 inline-block rounded-md">
+                SHOP NOW
+              </a>
+            </Link>
           </div>
 
           {/* Mobile Menu Toggle */}
@@ -83,14 +80,14 @@ export default function Header() {
                 </a>
               </Link>
             ))}
-            <Button
-              asChild
-              className="w-full bg-primary hover:bg-red-700 text-white font-bold transition-all duration-200"
-            >
-              <Link href="/products">
-                <a onClick={() => setIsMenuOpen(false)}>SHOP NOW</a>
-              </Link>
-            </Button>
+            <Link href="/products">
+              <a
+                onClick={() => setIsMenuOpen(false)}
+                className="block w-full bg-primary hover:bg-red-700 text-white font-bold py-2 px-4 transition-all duration-200 text-center rounded-md"
+              >
+                SHOP NOW
+              </a>
+            </Link>
           </nav>
         )}
       </div>
