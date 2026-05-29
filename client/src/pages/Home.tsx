@@ -50,39 +50,44 @@ export default function Home() {
       <Header />
 
       <main className="flex-1">
-        {/* Hero Section - Transcend Dark Layout */}
-        <section className="relative overflow-hidden bg-black text-white min-h-screen flex items-center">
-          {/* Background gradient overlay */}
-          <div className="absolute inset-0 opacity-20">
-            <div
-              className="absolute inset-0"
-              style={{
-                backgroundImage:
-                  "radial-gradient(circle at 30% 50%, rgba(139, 92, 246, 0.1) 0%, transparent 50%), radial-gradient(circle at 70% 50%, rgba(59, 130, 246, 0.1) 0%, transparent 50%)",
-              }}
-            ></div>
-          </div>
+        {/* Hero Section - Full Width Video Background */}
+        <section className="relative overflow-hidden min-h-screen flex items-center justify-center">
+          {/* Full Width Video Background */}
+          <video
+            autoPlay
+            muted
+            loop
+            className="absolute inset-0 w-full h-full object-cover"
+          >
+            <source src="/hero-video.mp4" type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
 
-          <div className="container mx-auto px-4 relative z-10">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-              {/* Left Content */}
+          {/* Dark Overlay */}
+          <div className="absolute inset-0 bg-black/40"></div>
+
+          {/* Content Overlay */}
+          <div className="relative z-10 w-full">
+            <div className="container mx-auto px-4">
               <motion.div
                 variants={containerVariants}
                 initial="hidden"
                 animate="visible"
-                className="space-y-8 order-2 lg:order-1"
+                className="max-w-2xl space-y-8"
               >
                 {/* Badge */}
                 <motion.div variants={itemVariants}>
                   <div className="inline-block">
-                    <span className="text-primary font-bold text-xs tracking-widest uppercase">SINCE 1972</span>
+                    <span className="text-primary font-bold text-xs tracking-widest uppercase bg-black/50 px-4 py-2 rounded-md">
+                      SINCE 1972
+                    </span>
                   </div>
                 </motion.div>
 
                 {/* Main Heading */}
                 <motion.h1
                   variants={itemVariants}
-                  className="text-6xl md:text-7xl lg:text-8xl font-display font-bold leading-tight tracking-tighter"
+                  className="text-6xl md:text-7xl lg:text-8xl font-display font-bold leading-tight tracking-tighter text-white"
                 >
                   WEAPON TO WIN
                 </motion.h1>
@@ -90,7 +95,7 @@ export default function Home() {
                 {/* Description */}
                 <motion.p
                   variants={itemVariants}
-                  className="text-lg text-gray-400 max-w-lg leading-relaxed"
+                  className="text-lg md:text-xl text-gray-200 max-w-lg leading-relaxed"
                 >
                   Manufacturing excellence in boxing and weightlifting gear. Built for champions, trusted by athletes across India.
                 </motion.p>
@@ -103,56 +108,16 @@ export default function Home() {
                     </a>
                   </Link>
                   <Link href="/about">
-                    <a className="border-2 border-primary text-primary hover:bg-primary hover:text-white font-bold px-8 py-4 transition-all duration-200 inline-flex items-center justify-center rounded-md">
+                    <a className="border-2 border-white text-white hover:bg-white hover:text-black font-bold px-8 py-4 transition-all duration-200 inline-flex items-center justify-center rounded-md">
                       LEARN MORE
                     </a>
                   </Link>
                 </motion.div>
 
                 {/* Bottom Info */}
-                <motion.div variants={itemVariants} className="pt-8 border-t border-gray-700">
-                  <p className="text-sm text-gray-500 uppercase tracking-widest">Trusted by athletes worldwide</p>
+                <motion.div variants={itemVariants} className="pt-8 border-t border-gray-400">
+                  <p className="text-sm text-gray-300 uppercase tracking-widest">Trusted by athletes worldwide</p>
                 </motion.div>
-              </motion.div>
-
-              {/* Right Video Section */}
-              <motion.div
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.8, delay: 0.3 }}
-                className="relative order-1 lg:order-2 h-96 md:h-full md:min-h-96"
-              >
-                {/* Video Container with Glow Effect */}
-                <div className="relative w-full h-full rounded-lg overflow-hidden shadow-2xl">
-                  {/* Glow background */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-purple-500/20 via-blue-500/20 to-transparent rounded-lg blur-2xl opacity-60"></div>
-                  
-                  {/* Video */}
-                  <video
-                    autoPlay
-                    muted
-                    loop
-                    className="w-full h-full object-cover rounded-lg"
-                  >
-                    <source src="/hero-video.mp4" type="video/mp4" />
-                    Your browser does not support the video tag.
-                  </video>
-
-                  {/* Border accent */}
-                  <div className="absolute inset-0 border-2 border-primary/50 rounded-lg pointer-events-none"></div>
-                </div>
-
-                {/* Floating accent elements */}
-                <motion.div
-                  animate={{ y: [0, -10, 0] }}
-                  transition={{ duration: 4, repeat: Infinity }}
-                  className="absolute -top-4 -right-4 w-24 h-24 bg-primary/10 rounded-full blur-3xl"
-                ></motion.div>
-                <motion.div
-                  animate={{ y: [0, 10, 0] }}
-                  transition={{ duration: 5, repeat: Infinity, delay: 0.5 }}
-                  className="absolute -bottom-4 -left-4 w-32 h-32 bg-blue-500/10 rounded-full blur-3xl"
-                ></motion.div>
               </motion.div>
             </div>
           </div>
@@ -161,12 +126,12 @@ export default function Home() {
           <motion.div
             animate={{ y: [0, 10, 0] }}
             transition={{ duration: 2, repeat: Infinity }}
-            className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
+            className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-10"
           >
             <div className="text-center">
-              <p className="text-gray-500 text-xs uppercase tracking-widest mb-2">Scroll to explore</p>
-              <div className="w-6 h-10 border-2 border-gray-500 rounded-full flex items-start justify-center p-2">
-                <div className="w-1 h-2 bg-gray-500 rounded-full animate-bounce"></div>
+              <p className="text-gray-300 text-xs uppercase tracking-widest mb-2">Scroll to explore</p>
+              <div className="w-6 h-10 border-2 border-gray-300 rounded-full flex items-start justify-center p-2">
+                <div className="w-1 h-2 bg-gray-300 rounded-full animate-bounce"></div>
               </div>
             </div>
           </motion.div>
