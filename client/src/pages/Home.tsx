@@ -107,11 +107,15 @@ export default function Home() {
                 transition={{ duration: 0.8, delay: 0.3 }}
                 className="relative"
               >
-                <img
-                  src="https://d2xsxph8kpxj0f.cloudfront.net/310519663686172445/gNHmU25WyEsKDHgdDpTPAw/hero-boxing-jsgsqzdGYwqmPN7vnNS4Qh.webp"
-                  alt="Boxer in action"
+                <video
+                  autoPlay
+                  muted
+                  loop
                   className="w-full h-auto rounded-sm shadow-2xl"
-                />
+                >
+                  <source src="/hero-video.mp4" type="video/mp4" />
+                  Your browser does not support the video tag.
+                </video>
                 <div className="absolute inset-0 border-2 border-primary rounded-sm"></div>
               </motion.div>
             </div>
