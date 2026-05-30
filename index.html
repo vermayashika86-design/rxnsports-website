@@ -1,0 +1,430 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>RXN SPORTS Hero</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;700&display=swap" rel="stylesheet" />
+    <style>
+      :root {
+        color-scheme: dark;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html, body {
+        margin: 0;
+        min-height: 100%;
+        background: #0a0a0a;
+        font-family: 'Inter', sans-serif;
+        color: #fff;
+        overflow-x: hidden;
+      }
+      body {
+        overflow-y: auto;
+      }
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+      .preloader {
+        position: fixed;
+        inset: 0;
+        z-index: 9999;
+        background: #000;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        opacity: 1;
+        transition: opacity 0.4s ease;
+      }
+      .preloader.fade-out {
+        opacity: 0;
+      }
+      .preload-cluster {
+        position: relative;
+        width: 140px;
+        height: 140px;
+      }
+      .preload-icon {
+        position: absolute;
+        width: 48px;
+        height: 48px;
+        fill: #fff;
+        animation: pulse 400ms ease-in-out forwards;
+        transform-origin: center center;
+      }
+      .preload-icon.glove {
+        top: 0;
+        left: 50%;
+        --tx: -50%;
+        --ty: 0;
+        transform: translate(var(--tx), var(--ty)) scale(1);
+        animation-delay: 0ms;
+      }
+      .preload-icon.bag {
+        top: 50%;
+        right: 0;
+        --tx: 0;
+        --ty: -50%;
+        transform: translate(var(--tx), var(--ty)) scale(1);
+        animation-delay: 150ms;
+      }
+      .preload-icon.dumbbell {
+        left: 0;
+        top: 50%;
+        --tx: 0;
+        --ty: -50%;
+        transform: translate(var(--tx), var(--ty)) scale(1);
+        animation-delay: 300ms;
+      }
+      .preload-icon.boxer {
+        bottom: 0;
+        left: 50%;
+        --tx: -50%;
+        --ty: 0;
+        transform: translate(var(--tx), var(--ty)) scale(1);
+        animation-delay: 450ms;
+      }
+      @keyframes pulse {
+        0% { transform: translate(var(--tx), var(--ty)) scale(0.95); }
+        50% { transform: translate(var(--tx), var(--ty)) scale(1.05); }
+        100% { transform: translate(var(--tx), var(--ty)) scale(1); }
+      }
+      .hero-page {
+        width: 100vw;
+        height: 100vh;
+        position: relative;
+        overflow: hidden;
+        background: #0a0a0a;
+      }
+      .hero-nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 100;
+        padding: 20px 40px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: transparent;
+      }
+      .nav-left,
+      .nav-right {
+        display: flex;
+        align-items: center;
+        gap: 28px;
+      }
+      .nav-logo {
+        color: #E31B23;
+        font-weight: 700;
+        font-size: 18px;
+        letter-spacing: 0.15em;
+      }
+      .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 24px;
+      }
+      .nav-link {
+        font-size: 14px;
+        letter-spacing: 0.08em;
+        color: #fff;
+      }
+      .nav-icon {
+        width: 20px;
+        height: 20px;
+        fill: #fff;
+      }
+      .cart-badge {
+        position: absolute;
+        top: -6px;
+        right: -6px;
+        min-width: 18px;
+        height: 18px;
+        border-radius: 999px;
+        background: #E31B23;
+        color: #fff;
+        font-size: 11px;
+        line-height: 18px;
+        text-align: center;
+        font-weight: 700;
+      }
+      .icon-button {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+      }
+      .layer-wall,
+      .layer-athlete,
+      .layer-bag,
+      .headline-wrapper,
+      .hero-copy,
+      .scan-line {
+        position: absolute;
+      }
+      .layer-wall {
+        z-index: 1;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 130%;
+        background: #111;
+        background-image: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255,255,255,0.015) 2px, rgba(255,255,255,0.015) 4px);
+      }
+      .layer-athlete {
+        z-index: 3;
+        bottom: 0;
+        left: 5%;
+        width: 340px;
+        height: 90%;
+        background: linear-gradient(to top, #1a1a1a, #333);
+        clip-path: polygon(20% 0%, 80% 0%, 100% 100%, 0% 100%);
+      }
+      .layer-bag {
+        z-index: 5;
+        right: -2%;
+        top: -10%;
+        width: 160px;
+        height: 110%;
+        background: #1c1c1c;
+        border-radius: 12px 12px 40px 40px;
+      }
+      .headline-wrapper {
+        z-index: 4;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        overflow: hidden;
+        width: calc(100% - 160px);
+        max-width: 1280px;
+        pointer-events: none;
+      }
+      .headline-text {
+        display: inline-block;
+        font-family: 'Bebas Neue', sans-serif;
+        font-size: clamp(80px, 12vw, 160px);
+        color: #fff;
+        letter-spacing: -0.02em;
+        line-height: 0.9;
+        white-space: nowrap;
+        animation: reveal-text 0.8s cubic-bezier(0.77, 0, 0.175, 1) 1.95s both;
+        clip-path: inset(0 50% 0 50%);
+      }
+      .headline-text .highlight {
+        color: #E31B23;
+        border-bottom: 3px solid #E31B23;
+      }
+      @keyframes reveal-text {
+        from { clip-path: inset(0 50% 0 50%); }
+        to { clip-path: inset(0 0% 0 0%); }
+      }
+      .hero-copy {
+        z-index: 6;
+        bottom: 12%;
+        left: 4%;
+        max-width: 540px;
+      }
+      .hero-copy .eyebrow {
+        font-size: 13px;
+        letter-spacing: 0.3em;
+        color: #aaa;
+        text-transform: uppercase;
+        border-left: 3px solid #E31B23;
+        padding-left: 10px;
+        margin-bottom: 16px;
+      }
+      .hero-copy .subline {
+        margin: 0;
+        font-weight: 300;
+        font-size: 18px;
+        color: #ccc;
+        margin-bottom: 28px;
+      }
+      .hero-copy .cta-group {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+      .hero-copy .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 16px 36px;
+        font-size: 14px;
+        letter-spacing: 0.1em;
+        font-weight: 700;
+        text-transform: uppercase;
+        cursor: pointer;
+        border-radius: 4px;
+        border: none;
+      }
+      .hero-copy .btn-shop {
+        background: #E31B23;
+        color: #fff;
+      }
+      .hero-copy .btn-explore {
+        background: transparent;
+        color: #fff;
+        border: 1.5px solid #fff;
+      }
+      .scan-line {
+        z-index: 7;
+        left: 0;
+        width: 100%;
+        height: 1px;
+        background: rgba(227, 27, 35, 0.18);
+        animation: scan 4s linear infinite;
+        top: 0;
+        pointer-events: none;
+      }
+      @keyframes scan {
+        from { top: 0%; }
+        to { top: 100%; }
+      }
+      .spacer {
+        height: 120vh;
+        background: #050505;
+      }
+      @media (max-width: 1024px) {
+        .hero-copy {
+          left: 3%;
+        }
+        .headline-wrapper {
+          width: calc(100% - 80px);
+        }
+      }
+      @media (max-width: 768px) {
+        .hero-nav {
+          padding: 16px 24px;
+        }
+        .nav-links {
+          display: none;
+        }
+        .hero-copy {
+          bottom: 8%;
+          left: 3%;
+          right: 3%;
+        }
+        .hero-copy .subline {
+          font-size: 16px;
+        }
+        .hero-copy .cta-group {
+          flex-direction: column;
+          align-items: stretch;
+        }
+        .hero-copy .btn {
+          width: 100%;
+        }
+        .layer-athlete,
+        .layer-bag {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="preloader" id="preloader" aria-hidden="true">
+      <div class="preload-cluster">
+        <svg class="preload-icon glove" viewBox="0 0 64 64" aria-hidden="true">
+          <path d="M44 12c-4 0-6 2-8 4-2 2-4 5-6 5s-4-1-6-3c-2-2-5-4-9-4-6 0-10 5-10 11v10c0 9 7 16 16 16h20c9 0 16-7 16-16V23c0-8-5-11-13-11zM30 20c2-3 4-4 6-4 4 0 6 2 8 6 2 4 1 7-2 10-3 3-7 4-11 2-4-2-6-5-6-10 0-2 1-4 2-4z" />
+        </svg>
+        <svg class="preload-icon bag" viewBox="0 0 64 64" aria-hidden="true">
+          <path d="M44 8h-8V4h-8v4h-8c-4 0-8 4-8 8v8c0 11 9 20 20 20s20-9 20-20V16c0-4-4-8-8-8zm-18 4h8v4h-8v-4zm18 20c0 8-6 14-14 14S16 40 16 32V20h28v12z" />
+        </svg>
+        <svg class="preload-icon dumbbell" viewBox="0 0 64 64" aria-hidden="true">
+          <path d="M12 24h8v16h-8zM44 24h8v16h-8zM24 28h16v8H24zM4 20h8v24H4zM52 20h8v24h-8z" />
+        </svg>
+        <svg class="preload-icon boxer" viewBox="0 0 64 64" aria-hidden="true">
+          <path d="M38 8c0 6-5 11-11 11S16 14 16 8c0-4 3-7 7-7s7 3 7 7c0 0 8 1 8 8zm-14 24c-5 0-9 4-9 9v11h18V41c0-5-4-9-9-9zm20-4h8v10h-8z" />
+        </svg>
+      </div>
+    </div>
+    <nav class="hero-nav" aria-label="Primary navigation">
+      <div class="nav-left">
+        <div class="nav-logo">RXN SPORTS</div>
+        <div class="nav-links">
+          <a href="#" class="nav-link">Shop</a>
+          <a href="#" class="nav-link">Boxing</a>
+          <a href="#" class="nav-link">Weightlifting</a>
+          <a href="#" class="nav-link">About</a>
+          <a href="#" class="nav-link">Contact</a>
+        </div>
+      </div>
+      <div class="nav-right">
+        <a href="#" class="icon-button" aria-label="Search">
+          <svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M10 18c4.418 0 8-3.582 8-8s-3.582-8-8-8-8 3.582-8 8 3.582 8 8 8zm0 2C4.477 20 0 15.523 0 10S4.477 0 10 0s10 4.477 10 10-4.477 10-10 10zm13.707 3.293l-5.387-5.387A9.953 9.953 0 0 0 20 10c0-5.523-4.477-10-10-10S0 4.477 0 10s4.477 10 10 10a9.953 9.953 0 0 0 5.906-1.68l5.387 5.387a1 1 0 0 0 1.414-1.414z" />
+          </svg>
+        </a>
+        <a href="#" class="icon-button" aria-label="Cart">
+          <svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M7 18c-1.105 0-2 .895-2 2s.895 2 2 2 2-.895 2-2-.895-2-2-2zm10 0c-1.105 0-2 .895-2 2s.895 2 2 2 2-.895 2-2-.895-2-2-2zM6.16 6l1.63 8h8.42l1.63-8H6.16zm13.54-2l-1.4-2H5.22L3.82 4H1v2h2l3.6 8.59L5.24 18c-.14.25-.24.52-.24.82 0 1.105.895 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12L8.1 16h7.45c.75 0 1.42-.41 1.77-1.03L21.92 6H19.7z" />
+          </svg>
+          <span class="cart-badge">2</span>
+        </a>
+      </div>
+    </nav>
+    <main>
+      <section class="hero-page" id="hero">
+        <div class="layer-wall layer-wall"></div>
+        <div class="layer-athlete layer-athlete"></div>
+        <div class="layer-bag layer-bag"></div>
+        <div class="headline-wrapper">
+          <div class="headline-text">WEAPON TO <span class="highlight">WIN</span></div>
+        </div>
+        <div class="hero-copy">
+          <div class="eyebrow">EST. 1972</div>
+          <p class="subline">Built for champions. Trusted across India.</p>
+          <div class="cta-group">
+            <button class="btn btn-shop" type="button">SHOP NOW</button>
+            <button class="btn btn-explore" type="button">EXPLORE</button>
+          </div>
+        </div>
+        <div class="scan-line"></div>
+      </section>
+      <div class="spacer"></div>
+    </main>
+    <script>
+      const preloader = document.getElementById('preloader');
+      const hero = document.getElementById('hero');
+      const cleanupPreloader = () => {
+        preloader.classList.add('fade-out');
+        preloader.addEventListener('transitionend', () => {
+          preloader.style.display = 'none';
+        }, { once: true });
+      };
+      window.addEventListener('load', () => {
+        window.setTimeout(cleanupPreloader, 1500);
+      });
+      const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const isDesktop = window.innerWidth >= 768;
+      if (!prefersReduced && isDesktop) {
+        const layers = [
+          { el: document.querySelector('.layer-wall'), speed: 0.1 },
+          { el: document.querySelector('.layer-athlete'), speed: 0.25 },
+          { el: document.querySelector('.layer-bag'), speed: 0.45 },
+        ];
+        let ticking = false;
+        window.addEventListener('scroll', () => {
+          if (!ticking) {
+            window.requestAnimationFrame(() => {
+              const y = window.scrollY;
+              layers.forEach(({ el, speed }) => {
+                if (el) {
+                  el.style.transform = `translateY(${y * speed}px)`;
+                }
+              });
+              ticking = false;
+            });
+            ticking = true;
+          }
+        });
+      }
+    </script>
+  </body>
+</html>
