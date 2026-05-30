@@ -2,6 +2,7 @@ import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import Hero from "@/components/Hero";
 import { motion } from "framer-motion";
 import { ArrowRight, Zap, Shield, Trophy } from "lucide-react";
 
@@ -47,91 +48,10 @@ export default function Home() {
 
   return (
     <div className="min-h-screen flex flex-col bg-white">
-      <Header />
+      {/* <Header /> */}
 
       <main className="flex-1">
-        {/* Hero Section - Optimized for Drama and Hierarchy */}
-        <section className="relative overflow-hidden min-h-screen flex items-center justify-center">
-          {/* Full Width Video Background - Focused Framing */}
-          <div className="absolute inset-0 w-full h-full">
-            <video
-              autoPlay
-              muted
-              loop
-              playsInline
-              className="w-full h-full object-cover object-center"
-            >
-              <source src="/hero-video.mp4" type="video/mp4" />
-              Your browser does not support the video tag.
-            </video>
-            {/* Dark Gradient Overlay for readability */}
-            <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent"></div>
-          </div>
-
-          {/* Content Overlay */}
-          <div className="relative z-10 w-full">
-            <div className="container mx-auto px-4">
-              <motion.div
-                variants={containerVariants}
-                initial="hidden"
-                animate="visible"
-                className="max-w-4xl space-y-6"
-              >
-                {/* EST. 1972 Label - Trust Signal */}
-                <motion.div variants={itemVariants} className="flex items-center gap-3">
-                  <div className="w-12 h-[1px] bg-primary"></div>
-                  <span className="text-primary font-bold text-xs tracking-[0.2em] uppercase">
-                    EST. 1972
-                  </span>
-                </motion.div>
-
-                {/* Main Heading with Typographic Hierarchy */}
-                <motion.h1
-                  variants={itemVariants}
-                  className="font-display font-bold leading-[0.9] tracking-tighter text-white"
-                >
-                  <span className="block text-7xl md:text-8xl lg:text-9xl uppercase italic">WEAPON</span>
-                  <span className="relative inline-block text-5xl md:text-6xl lg:text-7xl uppercase mt-2 text-gray-300">
-                    TO WIN
-                    <div className="absolute -bottom-2 left-0 w-full h-2 bg-primary/80 -skew-x-12"></div>
-                  </span>
-                </motion.h1>
-
-                {/* Punchy Subtext */}
-                <motion.p
-                  variants={itemVariants}
-                  className="text-xl md:text-2xl text-gray-100 font-medium max-w-lg"
-                >
-                  Built for champions. Trusted across India.
-                </motion.p>
-
-                {/* CTA Buttons with Hierarchy */}
-                <motion.div variants={itemVariants} className="flex flex-col sm:flex-row gap-6 pt-8">
-                  <Link href="/products">
-                    <a className="bg-primary hover:bg-red-700 text-white font-bold px-10 py-4 transition-all duration-300 hover:scale-105 active:scale-95 inline-flex items-center justify-center gap-2 rounded-sm text-sm tracking-widest uppercase shadow-xl shadow-primary/20">
-                      SHOP NOW <ArrowRight className="w-5 h-5" />
-                    </a>
-                  </Link>
-                  <Link href="/products">
-                    <a className="border-2 border-white/80 text-white hover:bg-white hover:text-black font-bold px-10 py-4 transition-all duration-300 inline-flex items-center justify-center rounded-sm text-sm tracking-widest uppercase backdrop-blur-sm">
-                      EXPLORE
-                    </a>
-                  </Link>
-                </motion.div>
-              </motion.div>
-            </div>
-          </div>
-
-          {/* Minimal Scroll Indicator */}
-          <motion.div
-            animate={{ y: [0, 8, 0] }}
-            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-            className="absolute bottom-10 left-1/2 transform -translate-x-1/2 z-10 flex flex-col items-center gap-3"
-          >
-            <span className="text-white/60 text-[10px] font-bold uppercase tracking-[0.4em]">SCROLL</span>
-            <div className="w-[1px] h-12 bg-gradient-to-b from-primary to-transparent"></div>
-          </motion.div>
-        </section>
+        <Hero />
 
         {/* Featured Sections remain the same but with improved styling */}
         <section className="py-20 bg-white">

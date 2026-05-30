@@ -5,6 +5,7 @@
 
 @theme inline {
   --font-display: "Bebas Neue", sans-serif;
+  --font-heading: "Anton", sans-serif;
   --font-sans: "Inter", sans-serif;
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
