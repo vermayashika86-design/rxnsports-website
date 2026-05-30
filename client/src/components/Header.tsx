@@ -1,79 +1,96 @@
 import { Link } from "wouter";
-import { Menu, X } from "lucide-react";
-import { useState } from "react";
+import { Menu, X, ShoppingCart, Search } from "lucide-react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 
 /**
  * Header Component - RXN Sports
- * Aggressive Minimalism Design: Bold red and black with clean typography
- * Features: Responsive navigation, mobile menu toggle
+ * Updated with category-driven labels, cart/search icons, and scroll state.
  */
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const navItems = [
-    { label: "Home", href: "/" },
-    { label: "Products", href: "/products" },
-    { label: "About", href: "/about" },
-    { label: "Contact", href: "/contact" },
+    { label: "BOXING", href: "/products?category=boxing" },
+    { label: "WEIGHTLIFTING", href: "/products?category=weightlifting" },
+    { label: "WRESTLING", href: "/products?category=wrestling" },
+    { label: "ABOUT", href: "/about" },
   ];
 
   return (
-    <header className="sticky top-0 z-50 bg-white border-b-2 border-black">
-      <div className="container mx-auto px-4 py-4">
+    <header 
+      className={`sticky top-0 z-50 transition-all duration-300 ${
+        isScrolled ? "bg-white/95 backdrop-blur-md py-2 shadow-md" : "bg-white py-4"
+      } border-b border-black/10`}
+    >
+      <div className="container mx-auto px-4">
         <div className="flex items-center justify-between">
           {/* Logo */}
           <Link href="/">
-            <a className="flex items-center gap-2 text-2xl font-display font-bold text-black hover:text-primary transition-colors">
-              <div className="w-10 h-10 bg-primary rounded-sm flex items-center justify-center">
-                <span className="text-white font-bold text-lg">RXN</span>
-              </div>
-              <span className="hidden sm:inline">RXN SPORTS</span>
+            <a className="flex items-center gap-2">
+              <img src="/logo.png" alt="RXN SPORTS" className="h-10 md:h-12 w-auto" />
             </a>
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-8">
+          <nav className="hidden lg:flex items-center gap-8">
             {navItems.map(item => (
-              <Link key={item.href} href={item.href}>
-                <a className="text-sm font-semibold text-black hover:text-primary transition-colors duration-200 relative group">
+              <Link key={item.label} href={item.href}>
+                <a className="text-xs font-bold tracking-widest text-black hover:text-primary transition-colors duration-200 relative group uppercase">
                   {item.label}
-                  <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary group-hover:w-full transition-all duration-300"></span>
+                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary group-hover:w-full transition-all duration-300"></span>
                 </a>
               </Link>
             ))}
           </nav>
 
-          {/* CTA Button - Desktop */}
-          <div className="hidden md:flex items-center gap-4">
+          {/* Icons + CTA */}
+          <div className="flex items-center gap-4 md:gap-6">
+            <button className="text-black hover:text-primary transition-colors" aria-label="Search">
+              <Search className="w-5 h-5" />
+            </button>
+            <button className="text-black hover:text-primary transition-colors relative" aria-label="Cart">
+              <ShoppingCart className="w-5 h-5" />
+              <span className="absolute -top-2 -right-2 bg-primary text-white text-[10px] font-bold w-4 h-4 flex items-center justify-center rounded-full">0</span>
+            </button>
+            
             <Link href="/products">
-              <a className="bg-primary hover:bg-red-700 text-white font-bold px-6 py-2 transition-all duration-200 hover:scale-105 inline-block rounded-md">
+              <a className="hidden md:block bg-primary hover:bg-red-700 text-white font-bold px-6 py-2.5 transition-all duration-200 hover:scale-105 rounded-sm text-xs tracking-widest">
                 SHOP NOW
               </a>
             </Link>
-          </div>
 
-          {/* Mobile Menu Toggle */}
-          <button
-            className="md:hidden p-2 hover:bg-gray-100 rounded-sm transition-colors"
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-            aria-label="Toggle menu"
-          >
-            {isMenuOpen ? (
-              <X className="w-6 h-6 text-black" />
-            ) : (
-              <Menu className="w-6 h-6 text-black" />
-            )}
-          </button>
+            {/* Mobile Menu Toggle */}
+            <button
+              className="lg:hidden p-2 hover:bg-gray-100 rounded-sm transition-colors"
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              aria-label="Toggle menu"
+            >
+              {isMenuOpen ? (
+                <X className="w-6 h-6 text-black" />
+              ) : (
+                <Menu className="w-6 h-6 text-black" />
+              )}
+            </button>
+          </div>
         </div>
 
         {/* Mobile Navigation */}
         {isMenuOpen && (
-          <nav className="md:hidden mt-4 pt-4 border-t-2 border-black space-y-3">
+          <nav className="lg:hidden mt-4 pt-4 border-t border-gray-100 space-y-4 pb-4">
             {navItems.map(item => (
-              <Link key={item.href} href={item.href}>
+              <Link key={item.label} href={item.href}>
                 <a
-                  className="block text-sm font-semibold text-black hover:text-primary transition-colors"
+                  className="block text-sm font-bold tracking-widest text-black hover:text-primary transition-colors uppercase"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   {item.label}
@@ -83,7 +100,7 @@ export default function Header() {
             <Link href="/products">
               <a
                 onClick={() => setIsMenuOpen(false)}
-                className="block w-full bg-primary hover:bg-red-700 text-white font-bold py-2 px-4 transition-all duration-200 text-center rounded-md"
+                className="block w-full bg-primary hover:bg-red-700 text-white font-bold py-3 px-4 transition-all duration-200 text-center rounded-sm text-xs tracking-widest"
               >
                 SHOP NOW
               </a>

@@ -50,21 +50,23 @@ export default function Home() {
       <Header />
 
       <main className="flex-1">
-        {/* Hero Section - Full Width Video Background */}
+        {/* Hero Section - Optimized for Drama and Hierarchy */}
         <section className="relative overflow-hidden min-h-screen flex items-center justify-center">
-          {/* Full Width Video Background */}
-          <video
-            autoPlay
-            muted
-            loop
-            className="absolute inset-0 w-full h-full object-cover"
-          >
-            <source src="/hero-video.mp4" type="video/mp4" />
-            Your browser does not support the video tag.
-          </video>
-
-          {/* Dark Overlay */}
-          <div className="absolute inset-0 bg-black/40"></div>
+          {/* Full Width Video Background - Focused Framing */}
+          <div className="absolute inset-0 w-full h-full">
+            <video
+              autoPlay
+              muted
+              loop
+              playsInline
+              className="w-full h-full object-cover object-center"
+            >
+              <source src="/hero-video.mp4" type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+            {/* Dark Gradient Overlay for readability */}
+            <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent"></div>
+          </div>
 
           {/* Content Overlay */}
           <div className="relative z-10 w-full">
@@ -73,73 +75,68 @@ export default function Home() {
                 variants={containerVariants}
                 initial="hidden"
                 animate="visible"
-                className="max-w-2xl space-y-8"
+                className="max-w-4xl space-y-6"
               >
-                {/* Badge */}
-                <motion.div variants={itemVariants}>
-                  <div className="inline-block">
-                    <span className="text-primary font-bold text-xs tracking-widest uppercase bg-black/50 px-4 py-2 rounded-md">
-                      SINCE 1972
-                    </span>
-                  </div>
+                {/* EST. 1972 Label - Trust Signal */}
+                <motion.div variants={itemVariants} className="flex items-center gap-3">
+                  <div className="w-12 h-[1px] bg-primary"></div>
+                  <span className="text-primary font-bold text-xs tracking-[0.2em] uppercase">
+                    EST. 1972
+                  </span>
                 </motion.div>
 
-                {/* Main Heading */}
+                {/* Main Heading with Typographic Hierarchy */}
                 <motion.h1
                   variants={itemVariants}
-                  className="text-6xl md:text-7xl lg:text-8xl font-display font-bold leading-tight tracking-tighter text-white"
+                  className="font-display font-bold leading-[0.9] tracking-tighter text-white"
                 >
-                  WEAPON TO WIN
+                  <span className="block text-7xl md:text-8xl lg:text-9xl uppercase italic">WEAPON</span>
+                  <span className="relative inline-block text-5xl md:text-6xl lg:text-7xl uppercase mt-2 text-gray-300">
+                    TO WIN
+                    <div className="absolute -bottom-2 left-0 w-full h-2 bg-primary/80 -skew-x-12"></div>
+                  </span>
                 </motion.h1>
 
-                {/* Description */}
+                {/* Punchy Subtext */}
                 <motion.p
                   variants={itemVariants}
-                  className="text-lg md:text-xl text-gray-200 max-w-lg leading-relaxed"
+                  className="text-xl md:text-2xl text-gray-100 font-medium max-w-lg"
                 >
-                  Manufacturing excellence in boxing and weightlifting gear. Built for champions, trusted by athletes across India.
+                  Built for champions. Trusted across India.
                 </motion.p>
 
-                {/* CTA Buttons */}
-                <motion.div variants={itemVariants} className="flex flex-col sm:flex-row gap-4 pt-6">
+                {/* CTA Buttons with Hierarchy */}
+                <motion.div variants={itemVariants} className="flex flex-col sm:flex-row gap-6 pt-8">
                   <Link href="/products">
-                    <a className="bg-primary hover:bg-red-700 text-white font-bold px-8 py-4 transition-all duration-200 hover:scale-105 active:scale-95 inline-flex items-center justify-center gap-2 rounded-md">
+                    <a className="bg-primary hover:bg-red-700 text-white font-bold px-10 py-4 transition-all duration-300 hover:scale-105 active:scale-95 inline-flex items-center justify-center gap-2 rounded-sm text-sm tracking-widest uppercase shadow-xl shadow-primary/20">
                       SHOP NOW <ArrowRight className="w-5 h-5" />
                     </a>
                   </Link>
-                  <Link href="/about">
-                    <a className="border-2 border-white text-white hover:bg-white hover:text-black font-bold px-8 py-4 transition-all duration-200 inline-flex items-center justify-center rounded-md">
-                      LEARN MORE
+                  <Link href="/products">
+                    <a className="border-2 border-white/80 text-white hover:bg-white hover:text-black font-bold px-10 py-4 transition-all duration-300 inline-flex items-center justify-center rounded-sm text-sm tracking-widest uppercase backdrop-blur-sm">
+                      EXPLORE
                     </a>
                   </Link>
-                </motion.div>
-
-                {/* Bottom Info */}
-                <motion.div variants={itemVariants} className="pt-8 border-t border-gray-400">
-                  <p className="text-sm text-gray-300 uppercase tracking-widest">Trusted by athletes worldwide</p>
                 </motion.div>
               </motion.div>
             </div>
           </div>
 
-          {/* Scroll Indicator */}
+          {/* Minimal Scroll Indicator */}
           <motion.div
-            animate={{ y: [0, 10, 0] }}
-            transition={{ duration: 2, repeat: Infinity }}
-            className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-10"
+            animate={{ y: [0, 8, 0] }}
+            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+            className="absolute bottom-10 left-1/2 transform -translate-x-1/2 z-10 flex flex-col items-center gap-3"
           >
-            <div className="text-center">
-              <p className="text-gray-300 text-xs uppercase tracking-widest mb-2">Scroll to explore</p>
-              <div className="w-6 h-10 border-2 border-gray-300 rounded-full flex items-start justify-center p-2">
-                <div className="w-1 h-2 bg-gray-300 rounded-full animate-bounce"></div>
-              </div>
-            </div>
+            <span className="text-white/60 text-[10px] font-bold uppercase tracking-[0.4em]">SCROLL</span>
+            <div className="w-[1px] h-12 bg-gradient-to-b from-primary to-transparent"></div>
           </motion.div>
         </section>
 
-        <section className="py-16 md:py-24 bg-white">
+        {/* Featured Sections remain the same but with improved styling */}
+        <section className="py-20 bg-white">
           <div className="container mx-auto px-4">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
               {[
                 {
                   icon: Zap,
@@ -165,11 +162,13 @@ export default function Home() {
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, delay: index * 0.1 }}
                     viewport={{ once: true }}
-                    className="text-center p-6 border-2 border-black hover:border-primary transition-colors duration-300"
+                    className="group"
                   >
-                    <Icon className="w-12 h-12 text-primary mx-auto mb-4" />
-                    <h3 className="font-display font-bold text-xl mb-2">{feature.title}</h3>
-                    <p className="text-gray-600 text-sm">{feature.description}</p>
+                    <div className="mb-6 inline-block p-4 bg-gray-50 rounded-sm group-hover:bg-primary/5 transition-colors">
+                      <Icon className="w-8 h-8 text-primary" />
+                    </div>
+                    <h3 className="font-display font-bold text-2xl mb-3 tracking-tight">{feature.title}</h3>
+                    <p className="text-gray-600 leading-relaxed">{feature.description}</p>
                   </motion.div>
                 );
               })}
@@ -177,20 +176,26 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="py-16 md:py-24 bg-gray-50">
+        {/* Product Grid Section */}
+        <section className="py-20 bg-gray-50">
           <div className="container mx-auto px-4">
             <motion.div
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               transition={{ duration: 0.6 }}
               viewport={{ once: true }}
-              className="mb-12"
+              className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6"
             >
-              <h2 className="font-display font-bold text-4xl md:text-5xl mb-4">FEATURED PRODUCTS</h2>
-              <div className="w-20 h-1 bg-primary"></div>
+              <div>
+                <span className="text-primary font-bold text-xs tracking-widest uppercase mb-2 block">Our Collection</span>
+                <h2 className="font-display font-bold text-5xl tracking-tighter">FEATURED GEAR</h2>
+              </div>
+              <Link href="/products">
+                <a className="text-sm font-bold border-b-2 border-primary pb-1 hover:text-primary transition-colors">VIEW ALL PRODUCTS</a>
+              </Link>
             </motion.div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
               {featuredProducts.map((product, index) => (
                 <motion.div
                   key={product.id}
@@ -198,67 +203,51 @@ export default function Home() {
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: index * 0.1 }}
                   viewport={{ once: true }}
-                  className="bg-white border-2 border-black hover:border-primary transition-all duration-300 overflow-hidden group"
+                  className="bg-white group cursor-pointer"
                 >
-                  <div className="relative overflow-hidden h-64 md:h-80 bg-gray-200">
+                  <div className="relative aspect-[4/3] overflow-hidden bg-gray-100">
                     <img
                       src={product.image}
                       alt={product.name}
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                     />
-                  </div>
-                  <div className="p-6">
-                    <p className="text-primary font-bold text-sm mb-2">{product.category}</p>
-                    <h3 className="font-display font-bold text-xl mb-2 line-clamp-2">{product.name}</h3>
-                    <div className="flex items-center justify-between mb-4">
-                      <span className="text-2xl font-bold text-black">{product.price}</span>
-                      <span className="text-sm text-gray-600">★ {product.rating}</span>
+                    <div className="absolute top-4 left-4">
+                      <span className="bg-black text-white text-[10px] font-bold px-3 py-1 uppercase tracking-widest">{product.category}</span>
                     </div>
-                    <Link href="/products">
-                      <a className="block w-full bg-primary hover:bg-red-700 text-white font-bold py-2 px-4 text-center transition-all duration-200 rounded-md">
-                        VIEW DETAILS
-                      </a>
-                    </Link>
+                  </div>
+                  <div className="py-6 flex justify-between items-start">
+                    <div>
+                      <h3 className="font-display font-bold text-2xl mb-1 group-hover:text-primary transition-colors">{product.name}</h3>
+                      <div className="flex items-center gap-4">
+                        <span className="text-xl font-bold">{product.price}</span>
+                        <span className="text-sm text-gray-400">★ {product.rating}</span>
+                      </div>
+                    </div>
+                    <div className="w-12 h-12 border border-black flex items-center justify-center group-hover:bg-black group-hover:text-white transition-all">
+                      <ArrowRight className="w-5 h-5" />
+                    </div>
                   </div>
                 </motion.div>
               ))}
             </div>
-
-            <motion.div
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              transition={{ duration: 0.6 }}
-              viewport={{ once: true }}
-              className="text-center mt-12"
-            >
-              <Link href="/products">
-                <a className="bg-black hover:bg-gray-900 text-white font-bold px-8 py-3 transition-all duration-200 inline-flex items-center gap-2 rounded-md">
-                  EXPLORE ALL PRODUCTS <ArrowRight className="w-5 h-5" />
-                </a>
-              </Link>
-            </motion.div>
           </div>
         </section>
 
-        <section className="py-16 md:py-24 bg-black text-white">
-          <div className="container mx-auto px-4 text-center">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              viewport={{ once: true }}
-              className="space-y-6"
-            >
-              <h2 className="font-display font-bold text-4xl md:text-5xl">READY TO WIN?</h2>
-              <p className="text-lg text-gray-300 max-w-2xl mx-auto">
+        {/* Final CTA */}
+        <section className="py-24 bg-black text-white relative overflow-hidden">
+          <div className="absolute top-0 right-0 w-1/3 h-full bg-primary/10 -skew-x-12 transform translate-x-1/2"></div>
+          <div className="container mx-auto px-4 relative z-10">
+            <div className="max-w-3xl">
+              <h2 className="font-display font-bold text-6xl md:text-7xl tracking-tighter mb-8 uppercase italic">READY TO WIN?</h2>
+              <p className="text-xl text-gray-400 mb-10 max-w-xl">
                 Join thousands of athletes who trust RXN Sports for their training and competition gear.
               </p>
               <Link href="/contact">
-                <a className="bg-primary hover:bg-red-700 text-white font-bold px-8 py-3 transition-all duration-200 hover:scale-105 active:scale-95 inline-flex items-center gap-2 rounded-md">
+                <a className="bg-primary hover:bg-red-700 text-white font-bold px-12 py-5 transition-all duration-300 hover:scale-105 inline-flex items-center gap-3 rounded-sm text-sm tracking-widest uppercase">
                   GET IN TOUCH <ArrowRight className="w-5 h-5" />
                 </a>
               </Link>
-            </motion.div>
+            </div>
           </div>
         </section>
       </main>
