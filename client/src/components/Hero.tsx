@@ -4,17 +4,32 @@ import { Link } from "wouter";
 
 const Hero = () => {
   const [phase, setPhase] = useState(1);
+  const [isMobile, setIsMobile] = useState(false);
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    const checkMotion = () => setPrefersReducedMotion(window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+    
+    checkMobile();
+    checkMotion();
+    
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end start"]
   });
 
-  // Parallax transforms
-  const bagY = useTransform(scrollYProgress, [0, 1], ["0%", "40%"]);
-  const athleteY = useTransform(scrollYProgress, [0, 1], ["0%", "20%"]);
-  const wallY = useTransform(scrollYProgress, [0, 1], ["0%", "5%"]);
+  // Parallax transforms - Disabled for mobile or reduced motion
+  const disableParallax = isMobile || prefersReducedMotion;
+  
+  const bagY = useTransform(scrollYProgress, [0, 1], ["0%", disableParallax ? "0%" : "40%"]);
+  const athleteY = useTransform(scrollYProgress, [0, 1], ["0%", disableParallax ? "0%" : "20%"]);
+  const wallY = useTransform(scrollYProgress, [0, 1], ["0%", disableParallax ? "0%" : "5%"]);
   const headlineOpacity = useTransform(scrollYProgress, [0, 0.3, 0.4], [1, 1, 0]);
   const headlineY = useTransform(scrollYProgress, [0, 0.4], ["0%", "-10%"]);
 
@@ -109,7 +124,8 @@ const Hero = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={phase === 2 ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.5, delay: 1.2 }}
-              className="text-[#D0D0D0] text-lg font-light mt-4 tracking-normal text-left"
+              className="text-[#D0D0D0] text-[18px] font-light mt-4 tracking-normal text-left font-sans"
+              style={{ fontWeight: 300 }}
             >
               Built for champions. Trusted across India.
             </motion.p>
@@ -122,12 +138,12 @@ const Hero = () => {
               className="flex gap-4 mt-8"
             >
               <Link href="/products">
-                <a className="bg-[#E31B23] text-white px-10 py-4 font-bold uppercase text-sm tracking-widest hover:bg-red-700 transition-colors">
+                <a className="bg-[#E31B23] text-white px-10 py-4 font-bold uppercase text-sm tracking-widest hover:bg-red-700 transition-colors rounded-none">
                   SHOP NOW
                 </a>
               </Link>
               <Link href="/products">
-                <a className="border border-white text-white px-10 py-4 font-bold uppercase text-sm tracking-widest hover:bg-white hover:text-black transition-all">
+                <a className="border border-white text-white px-10 py-4 font-bold uppercase text-sm tracking-widest hover:bg-white hover:text-black transition-all rounded-none">
                   EXPLORE
                 </a>
               </Link>
